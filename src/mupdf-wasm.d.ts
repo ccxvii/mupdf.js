@@ -539,4 +539,5 @@ interface Libmupdf {
 	_wasm_walk_path(path: Pointer<"fz_path">, walk_id: number): void,
 	_wasm_walk_text(text: Pointer<"fz_text">, walk_id: number): void,
 	_wasm_new_js_device(id: number): Pointer<"fz_device">,
+	_wasm_register_activity_logger(): void,
 }

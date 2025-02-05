@@ -4321,3 +4321,20 @@ globalThis.$libmupdf_device = {
 	},
 
 }
+
+/* -------------------------------------------------------------------------- */
+
+interface ActivityLogger {
+	newDocument?(): void,
+	shutdown?(): void,
+}
+
+declare global {
+	var $libmupdf_activity_logger: ActivityLogger
+}
+
+export function registerActivityLogger(logger: ActivityLogger) {
+	globalThis.$libmupdf_activity_logger = logger
+	libmupdf._wasm_register_activity_logger()
+
+}

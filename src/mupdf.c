@@ -2978,3 +2978,21 @@ fz_device *wasm_new_js_device(int id)
 
 	return (fz_device*)dev;
 }
+
+// --- ACTIVITY LOGGER ---
+
+static void activity_logger(fz_context *ctx, void *opaque, fz_activity_reason reason, void *reason_arg)
+{
+	if (reason == FZ_ACTIVITY_NEW_DOC)
+		EM_ASM({ globalThis.$libmupdf_activity_logger?.newDocument?.() });
+	if (reason == FZ_ACTIVITY_SHUTDOWN)
+		EM_ASM({ globalThis.$libmupdf_activity_logger?.shutdown?.() });
+}
+
+EXPORT
+void wasm_register_activity_logger(void)
+{
+	TRY({
+		fz_register_activity_logger(ctx, activity_logger, NULL);
+	})
+}
