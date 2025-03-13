@@ -1927,6 +1927,8 @@ interface OutlineItem {
 	open: boolean,
 	down?: OutlineItem[],
 	page?: number,
+	style?: number,
+	color?: Color,
 }
 
 export class OutlineIterator extends Userdata<"fz_outline_iterator"> {
@@ -1936,16 +1938,27 @@ export class OutlineIterator extends Userdata<"fz_outline_iterator"> {
 	static readonly RESULT_AT_ITEM = 0
 	static readonly RESULT_AT_EMPTY = 1
 
+	static readonly STYLE_NORMAL = 0
+	static readonly STYLE_ITALIC = 1
+	static readonly STYLE_BOLD = 2
+	static readonly STYLE_BOLD_ITALIC = 3
+
 	item() {
 		let item = libmupdf._wasm_outline_iterator_item(this.pointer)
 		if (item) {
 			let title_ptr = libmupdf._wasm_outline_item_get_title(item)
 			let uri_ptr = libmupdf._wasm_outline_item_get_uri(item)
 			let is_open = libmupdf._wasm_outline_item_get_is_open(item)
+			let style = libmupdf._wasm_outline_item_get_flags(item)
+			let r = libmupdf._wasm_outline_item_get_r(item)
+			let g = libmupdf._wasm_outline_item_get_g(item)
+			let b = libmupdf._wasm_outline_item_get_b(item)
 			return {
 				title: title_ptr ? fromString(title_ptr) : undefined,
 				uri: uri_ptr ? fromString(uri_ptr) : undefined,
 				open: !!is_open,
+				style: style,
+				color: [ r, g, b ],
 			} as OutlineItem
 		}
 		return null
@@ -1972,11 +1985,13 @@ export class OutlineIterator extends Userdata<"fz_outline_iterator"> {
 	}
 
 	insert(item: OutlineItem) {
-		return libmupdf._wasm_outline_iterator_insert(this.pointer, STRING_OPT(item.title), STRING2_OPT(item.uri), item.open)
+		var [ r, g, b ] = rgbFromColor(item.color)
+		return libmupdf._wasm_outline_iterator_insert(this.pointer, STRING_OPT(item.title), STRING2_OPT(item.uri), item.open, Number(item.style), r, g, b)
 	}
 
 	update(item: OutlineItem) {
-		libmupdf._wasm_outline_iterator_update(this.pointer, STRING_OPT(item.title), STRING2_OPT(item.uri), item.open)
+		var [ r, g, b ] = rgbFromColor(item.color)
+		libmupdf._wasm_outline_iterator_update(this.pointer, STRING_OPT(item.title), STRING2_OPT(item.uri), item.open, Number(item.style), r, g, b)
 	}
 }
 

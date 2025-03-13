@@ -429,6 +429,10 @@ GET(outline, boolean, is_open)
 GET(outline_item, char*, title)
 GET(outline_item, char*, uri)
 GET(outline_item, boolean, is_open)
+GET(outline_item, int, style)
+GET(outline_item, float, r)
+GET(outline_item, float, g)
+GET(outline_item, float, b)
 
 GETP(link, fz_rect, rect)
 GET(link, char*, uri)
@@ -1367,16 +1371,16 @@ fz_outline_item * wasm_outline_iterator_item(fz_outline_iterator *iter)
 }
 
 EXPORT
-int wasm_outline_iterator_insert(fz_outline_iterator *iter, char *title, char *uri, boolean is_open)
+int wasm_outline_iterator_insert(fz_outline_iterator *iter, char *title, char *uri, boolean is_open, int style, float r, float g, float b)
 {
-	fz_outline_item item = { title, uri, is_open };
+	fz_outline_item item = { title, uri, is_open, style, r, g, b };
 	INTEGER(fz_outline_iterator_insert, iter, &item)
 }
 
 EXPORT
-void wasm_outline_iterator_update(fz_outline_iterator *iter, char *title, char *uri, boolean is_open)
+void wasm_outline_iterator_update(fz_outline_iterator *iter, char *title, char *uri, boolean is_open, int style, float r, float g, float b)
 {
-	fz_outline_item item = { title, uri, is_open };
+	fz_outline_item item = { title, uri, is_open, style, r, g, b };
 	VOID(fz_outline_iterator_update, iter, &item)
 }
 
