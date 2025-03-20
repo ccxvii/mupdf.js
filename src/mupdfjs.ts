@@ -21,7 +21,6 @@
 // CA 94129, USA, for further information.
 
 import * as mupdf from "mupdf";
-export * from "mupdf";
 
 export type PDFWord = {
 	rect: mupdf.Rect,
@@ -741,7 +740,7 @@ export class PDFDocument extends mupdf.PDFDocument {
 	}
 }
 
-export class PDFPage extends mupdf.PDFPage {
+class PDFPage extends mupdf.PDFPage {
 	// note page number is zero-indexed here
 	// can also be called with the mupdf.PDFPage to be cloned
 	constructor(doc: mupdf.PDFDocument, page: number | mupdf.PDFPage) {
