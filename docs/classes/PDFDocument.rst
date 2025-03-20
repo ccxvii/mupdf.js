@@ -455,14 +455,6 @@ PDFDocument
         document.createLink([0,0,100,100], uri);
 
 
-.. method:: getPageLabels()
-
-    Extract the list of page label definitions. Typically used for modifications before feeding into :meth:`setPageLabels`.
-
-    This method returns an array of :ref:`PageLabelRule <Glossary_Page_Labels>` objects.
-
-    :return: `PageLabelRule[]`
-
 .. method:: setPageLabels(index:number, style:string = "D", prefix:string = "", start:number = 1)
 
     Sets the page label numbering for the page and all pages following it, until the next page with an attached label.
@@ -477,26 +469,6 @@ PDFDocument
     .. code-block:: javascript
 
         pdfDocument.setPageLabels(0, "D", "Prefix", 1);
-
-
-.. method:: setPageLabelsArray(labels: PageLabelRule[])
-
-    Define a set of labels for your pages using this method.
-
-    :arg labels: `PageLabelRule[]`. See :ref:`PageLabelRule <Glossary_Page_Labels>`.
-
-    |example_tag|
-
-    .. code-block:: javascript
-
-        const labels = [
-            { startpage: 0, style: "D" },
-            { startpage: 5, prefix: "B-" },
-            { startpage: 10, firstpagenum: 5 },
-        ];
-
-        document.setPageLabelsArray(labels);
-
 
 
 .. method:: deletePageLabels(index:number)
