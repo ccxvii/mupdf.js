@@ -467,6 +467,8 @@ interface Libmupdf {
 	_wasm_pdf_annot_default_appearance_font(annot: Pointer<"pdf_annot">): Pointer<"char">,
 	_wasm_pdf_annot_default_appearance_size(annot: Pointer<"pdf_annot">): number,
 	_wasm_pdf_annot_default_appearance_color(annot: Pointer<"pdf_annot">, color: Pointer<"float">): number,
+	_wasm_pdf_set_annot_stamp_image_obj(annot: Pointer<"pdf_annot">, obj: Pointer<"pdf_obj">): Pointer<"pdf_obj">,
+	_wasm_pdf_set_annot_stamp_image_obj(annot: Pointer<"pdf_annot">, obj: Pointer<"pdf_obj">): void,
 	_wasm_pdf_set_annot_stamp_image(annot: Pointer<"pdf_annot">, img: Pointer<"fz_image">): void,
 	_wasm_pdf_set_annot_appearance_from_display_list(annot: Pointer<"pdf_annot">, appearance: Pointer<"char">, state: Pointer<"char">, ctm: Pointer<"fz_matrix">, list: Pointer<"fz_display_list">): void,
 	_wasm_pdf_set_annot_appearance(annot: Pointer<"pdf_annot">, appearance: Pointer<"char">, state: Pointer<"char">, ctm: Pointer<"fz_matrix">, bbox: Pointer<"fz_rect">, resources: Pointer<"pdf_obj">, contents: Pointer<"fz_buffer">): void,

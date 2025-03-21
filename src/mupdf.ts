@@ -3624,6 +3624,14 @@ export class PDFAnnotation extends Userdata<"pdf_annot"> {
 		}
 	}
 
+	getStampImageObject() {
+		return this._doc._fromPDFObjectKeep(libmupdf._wasm_pdf_annot_stamp_image_obj(this.pointer))
+	}
+
+	setStampImageObject(obj: PDFObject) {
+		libmupdf._wasm_pdf_set_annot_stamp_image_obj(this.pointer, obj)
+	}
+
 	setStampImage(image: Image) {
 		libmupdf._wasm_pdf_set_annot_stamp_image(this.pointer, image.pointer)
 	}
